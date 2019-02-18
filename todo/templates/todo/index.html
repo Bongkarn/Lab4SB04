@@ -1,0 +1,76 @@
+{% extends 'todo/base.html' %}
+
+{% block content %}
+    <h1>Bong Cafe</h1>
+
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    <form action="{% url 'todo:create' %}" method="post">
+        {% csrf_token %}
+       
+    <div class="form-group">    
+        <!-- Menu & Topping -->
+        <label for="todo" class="col-sm-3 control-label">Menu</label>
+        <thead>
+            <th></th>1.Espresso<th>&nbsp;</th>
+            <th></th>2.Latte<th>&nbsp;</th>
+            <th></th>3.Macchiato<th>&nbsp;</th>
+            <th></th>4.With Cream<th>&nbsp;</th>
+            <th></th>5.Americano<th>&nbsp;</th>
+            <th></th>6.Irish Coffee<th>&nbsp;</th>
+        <label for="todo" class="col-sm-3 control-label">Topping</label>
+            <th></th>1.Strawberry<th>&nbsp;</th>
+            <th></th>2.White Chocolate<th>&nbsp;</th>
+            <th></th>3.Chocolate Chip<th>&nbsp;</th>
+            <th></th>4.Cookie Crumbles<th>&nbsp;</th>
+            <th></th>5.Waffle<th>&nbsp;</th>
+            <th></th>6.Ice Cream<th>&nbsp;</th>
+        </thead>
+    </div> 
+        
+        <!-- Size  -->
+        <div class="form-group">
+            <form action="">&nbsp;
+              <input type="radio" name="gender" value="small" id="small"> S &nbsp;
+              <input type="radio" name="gender" value="medium" id="medium"> M &nbsp;
+              <input type="radio" name="gender" value="large" id="large"> L &nbsp;
+            </form>
+        
+        <!-- Topping -->
+            <label for="todo" class="col-sm-3 control-label">Order & Topping</label>
+            <div class="col-sm-6">
+                {{ form.body }}
+            </div>
+        
+        <!-- Add Order Button  -->
+            <div class="col-sm-offset-3 col-sm-6">
+                <button type="submit" class="btn btn-default">
+                    <i class="fa fa-plus"></i> Add Order
+                </button>
+            </div>
+        </div>
+
+    </form>
+    
+
+    <!-- List Order -->
+    <h2>List Order</h2>
+    <table class="table table-striped todo-table">
+        <tbody>
+            {% for post in posts %}
+                <tr>
+                    <!-- Todo Name -->
+                    <td>
+                        <div>{{ post.body }}</div>&nbsp;
+                    </td>
+                    <td>
+                        <form action="{% url 'todo:delete' post.id %}" method="post">
+                            {% csrf_token %}
+                            <button>Delete Order</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+{% endblock %}
